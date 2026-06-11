@@ -5,11 +5,12 @@ import { motion } from "framer-motion"
 import { FormData, Product } from "@/types"
 import { ImageUpload } from "@/components/ImageUpload"
 
-type Module = "products" | "promo" | "cta" | "whatsapp" | "gallery" | "faq"
+type Module = "products" | "promo" | "cta" | "whatsapp" | "gallery" | "faq" | "contact"
 
 const modules: { id: Module; label: string; icon: string }[] = [
   { id: "products", label: "Produk", icon: "📦" },
   { id: "whatsapp", label: "WhatsApp", icon: "💬" },
+  { id: "contact", label: "Kontak", icon: "📞" },
   { id: "cta", label: "CTA Button", icon: "🎯" },
   { id: "promo", label: "Promo", icon: "🏷️" },
   { id: "gallery", label: "Galeri", icon: "🖼️" },
@@ -234,6 +235,53 @@ export default function StepOfferEngine({
             value={form.contact.whatsapp}
             onChange={(e) => onUpdate({ contact: { ...form.contact, whatsapp: e.target.value } })}
           />
+        </motion.div>
+      )}
+
+      {/* Contact module */}
+      {isActive("contact") && (
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3, delay: 0.08 }}
+          className="glass"
+          style={{ borderRadius: 16, padding: 20, marginTop: 16 }}
+        >
+          <div style={{ fontFamily: "var(--font-display)", fontSize: "0.9rem", fontWeight: 600, color: "rgba(255,255,255,0.5)", marginBottom: 12 }}>
+            📞 Kontak & Sosial Media
+          </div>
+          <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+            <input
+              className="input-brand"
+              placeholder="Email"
+              value={form.contact.email}
+              onChange={(e) => onUpdate({ contact: { ...form.contact, email: e.target.value } })}
+            />
+            <input
+              className="input-brand"
+              placeholder="Lokasi (contoh: Jakarta Selatan)"
+              value={form.contact.location}
+              onChange={(e) => onUpdate({ contact: { ...form.contact, location: e.target.value } })}
+            />
+            <input
+              className="input-brand"
+              placeholder="Username Instagram (tanpa @)"
+              value={form.contact.instagram}
+              onChange={(e) => onUpdate({ contact: { ...form.contact, instagram: e.target.value } })}
+            />
+            <input
+              className="input-brand"
+              placeholder="Link Shopee"
+              value={form.contact.shopee}
+              onChange={(e) => onUpdate({ contact: { ...form.contact, shopee: e.target.value } })}
+            />
+            <input
+              className="input-brand"
+              placeholder="Username TikTok"
+              value={form.contact.tiktok}
+              onChange={(e) => onUpdate({ contact: { ...form.contact, tiktok: e.target.value } })}
+            />
+          </div>
         </motion.div>
       )}
 

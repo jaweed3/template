@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { motion } from "framer-motion"
-import { BrandDNA, Archetype } from "@/types"
+import { FormData, BrandDNA, Archetype } from "@/types"
 
 const archetypes: { id: Archetype; label: string; desc: string }[] = [
   { id: "visionary", label: "Visionary", desc: "Melihat masa depan, berani bermimpi besar" },
@@ -14,13 +14,17 @@ const archetypes: { id: Archetype; label: string; desc: string }[] = [
 ]
 
 export default function StepBrandDNA({
+  form,
   dna,
   onUpdate,
+  onUpdateForm,
   onNext,
   onBack,
 }: {
+  form: FormData
   dna: BrandDNA
   onUpdate: (d: BrandDNA) => void
+  onUpdateForm: (p: Partial<FormData>) => void
   onNext: () => void
   onBack: () => void
 }) {
@@ -53,14 +57,44 @@ export default function StepBrandDNA({
             <span className="neon-text">brand</span>
           </h1>
           <p style={{ color: "rgba(255,255,255,0.25)", fontSize: "0.9rem", marginTop: 16, maxWidth: 400, margin: "16px auto 0", lineHeight: 1.6 }}>
-            Jika brandmu seorang manusia, bagaimana kepribadiannya? Jawab beberapa pertanyaan dan kami akan membentuk identitas yang cocok.
+            Sebelum kita bentuk kepribadian brandmu, kenalan dulu yuk.
           </p>
+          <div style={{ marginTop: 32, display: "flex", flexDirection: "column", gap: 12, maxWidth: 400, margin: "32px auto 0" }}>
+            <input
+              className="input-brand"
+              placeholder="Namamu"
+              value={form.studentName}
+              onChange={(e) => onUpdateForm({ studentName: e.target.value })}
+            />
+            <input
+              className="input-brand"
+              placeholder="Nama bisnismu"
+              value={form.businessName}
+              onChange={(e) => onUpdateForm({ businessName: e.target.value })}
+            />
+            <input
+              className="input-brand"
+              placeholder="Tagline (opsional)"
+              value={form.tagline}
+              onChange={(e) => onUpdateForm({ tagline: e.target.value })}
+            />
+            <textarea
+              className="input-brand"
+              placeholder="Cerita singkat tentang bisnismu (opsional)"
+              value={form.about}
+              onChange={(e) => onUpdateForm({ about: e.target.value })}
+              style={{ resize: "none", minHeight: 80 }}
+            />
+          </div>
           <motion.button
             className="btn-launch"
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.97 }}
-            onClick={() => setPhase("archetype")}
-            style={{ marginTop: 40 }}
+            onClick={() => {
+              if (!form.studentName.trim() || !form.businessName.trim()) return
+              setPhase("archetype")
+            }}
+            style={{ marginTop: 32, opacity: form.studentName.trim() && form.businessName.trim() ? 1 : 0.3 }}
           >
             <span>Mulai</span>
           </motion.button>

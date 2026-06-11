@@ -125,8 +125,10 @@ export default function LandingPageBuilder() {
             )}
             {step === 1 && (
               <StepBrandDNA
+                form={form}
                 dna={form.brandDna}
                 onUpdate={(brandDna: BrandDNA) => updateForm({ brandDna })}
+                onUpdateForm={updateForm}
                 onNext={() => setStep(2)}
                 onBack={() => setStep(0)}
               />
