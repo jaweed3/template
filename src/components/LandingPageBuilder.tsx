@@ -192,7 +192,7 @@ export default function LandingPageBuilder() {
             zIndex: 50,
           }}
         >
-          <button className="btn-ghost-brand" onClick={() => step > 1 ? setStep(step - 1) : null}>
+            <button className="btn-ghost-brand" onClick={() => setStep(step - 1)}>
             Kembali
           </button>
           <div style={{ fontFamily: "var(--font-display)", fontSize: "0.75rem", color: "rgba(255,255,255,0.15)", letterSpacing: "0.1em" }}>
