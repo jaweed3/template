@@ -1,4 +1,6 @@
-export type ThemeId = "ungu" | "abu" | "krem" | "pink"
+export type ThemeId = "mystic" | "luxury" | "brutalist" | "streetwear" | "agency" | "local"
+export type Archetype = "visionary" | "rebel" | "teacher" | "explorer" | "craftsman" | "innovator"
+export type ConversionGoal = "leads" | "whatsapp" | "booking" | "catalog" | "branding"
 
 export interface Product {
   id: string
@@ -14,6 +16,21 @@ export interface Testimonial {
   name: string
 }
 
+export interface BrandDNA {
+  archetype: Archetype | null
+  elegance: number  // 0 = elegant, 100 = playful
+  minimalism: number // 0 = minimal, 100 = expressive
+  modernity: number  // 0 = modern, 100 = classic
+}
+
+export interface TrustData {
+  reviews: boolean
+  photos: boolean
+  certificates: boolean
+  portfolio: boolean
+  partners: boolean
+}
+
 export interface FormData {
   studentName: string
   businessName: string
@@ -23,6 +40,9 @@ export interface FormData {
   logo: string | null
   products: Product[]
   testimonials: Testimonial[]
+  brandDna: BrandDNA
+  trust: TrustData
+  conversionGoal: ConversionGoal
   contact: {
     whatsapp: string
     email: string
@@ -36,16 +56,16 @@ export interface FormData {
 export interface ThemeConfig {
   id: ThemeId
   label: string
-  description: string
+  subtitle: string
   emoji: string
   colors: {
     primary: string
     secondary: string
     accent: string
     bg: string
-    bgLight: string
+    surface: string
     text: string
     textMuted: string
-    gradient: string
+    glow: string
   }
 }

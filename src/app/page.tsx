@@ -1,5 +1,5 @@
-import { LandingPageBuilder } from "@/components/LandingPageBuilder"
+import LandingPageBuilder from "@/components/LandingPageBuilder"
 
-export default function Home() {
+export default function Page() {
   return <LandingPageBuilder />
 }
