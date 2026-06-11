@@ -4,6 +4,7 @@ import { useRef, useState } from "react"
 import { motion } from "framer-motion"
 import { ThemeId } from "@/types"
 import { themeConfigs } from "@/templates/config"
+import EngravingPreview from "@/components/EngravingPreview"
 
 const themeBg: Record<string, string> = {
   mystic: "linear-gradient(135deg, #1a0a2e, #06060C, #0a1628)",
@@ -126,27 +127,35 @@ export default function StepDiscover({
               />
 
               <motion.div
-                animate={{ y: isHovered ? -6 : 0 }}
+                animate={{ y: isHovered ? -4 : 0 }}
                 transition={{ type: "spring", stiffness: 200, damping: 12 }}
-                style={{ position: "relative", zIndex: 1 }}
+                style={{ position: "relative", zIndex: 1, display: "flex", flexDirection: "column", alignItems: "center" }}
               >
-                <div style={{ fontSize: "3rem", marginBottom: 16 }}>{theme.emoji}</div>
+                <EngravingPreview
+                  themeId={theme.id}
+                  primary={theme.colors.primary}
+                  secondary={theme.colors.secondary}
+                  accent={theme.colors.accent}
+                  width={200}
+                  height={260}
+                />
                 <div
                   style={{
                     fontFamily: "var(--font-display)",
-                    fontSize: "1.2rem",
+                    fontSize: "1rem",
                     fontWeight: 700,
                     color: "white",
                     letterSpacing: "-0.01em",
+                    marginTop: 12,
                   }}
                 >
                   {theme.label}
                 </div>
                 <div
                   style={{
-                    fontSize: "0.75rem",
-                    color: "rgba(255,255,255,0.25)",
-                    marginTop: 6,
+                    fontSize: "0.7rem",
+                    color: "rgba(255,255,255,0.2)",
+                    marginTop: 4,
                     letterSpacing: "0.05em",
                   }}
                 >
