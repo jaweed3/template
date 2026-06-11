@@ -1,0 +1,68 @@
+import { ThemeConfig } from "@/types"
+
+export const themeConfigs: Record<string, ThemeConfig> = {
+  ungu: {
+    id: "ungu",
+    label: "Violet Odyssey",
+    description: "Ungu + Biru violet — unik, kreatif, modern",
+    emoji: "🔮",
+    colors: {
+      primary: "#7C3AED",
+      secondary: "#4F46E5",
+      accent: "#C4B5FD",
+      bg: "#0F0A2E",
+      bgLight: "#F5F3FF",
+      text: "#1E1B4B",
+      textMuted: "#6B7280",
+      gradient: "linear-gradient(135deg, #7C3AED, #4F46E5, #6366F1)",
+    },
+  },
+  abu: {
+    id: "abu",
+    label: "Shadow Monochrome",
+    description: "Abu-abu + Hitam — misterius, bold, maskulin",
+    emoji: "🌑",
+    colors: {
+      primary: "#1F2937",
+      secondary: "#111827",
+      accent: "#9CA3AF",
+      bg: "#030712",
+      bgLight: "#F3F4F6",
+      text: "#111827",
+      textMuted: "#6B7280",
+      gradient: "linear-gradient(135deg, #1F2937, #111827, #374151)",
+    },
+  },
+  krem: {
+    id: "krem",
+    label: "Warm Ivory",
+    description: "Putih + Krem — elegan, hangat, premium",
+    emoji: "✨",
+    colors: {
+      primary: "#F5F0EB",
+      secondary: "#E8DED5",
+      accent: "#8B7355",
+      bg: "#FAF7F4",
+      bgLight: "#FDFBF9",
+      text: "#2D1810",
+      textMuted: "#8B7355",
+      gradient: "linear-gradient(135deg, #F5F0EB, #E8DED5, #D4C5B5)",
+    },
+  },
+  pink: {
+    id: "pink",
+    label: "Blush Dream",
+    description: "Pink + Putih — girly, manis, ceria",
+    emoji: "🌸",
+    colors: {
+      primary: "#EC4899",
+      secondary: "#FBCFE8",
+      accent: "#BE185D",
+      bg: "#FDF2F8",
+      bgLight: "#FFF5F9",
+      text: "#831843",
+      textMuted: "#BE185D",
+      gradient: "linear-gradient(135deg, #EC4899, #F472B6, #FBCFE8)",
+    },
+  },
+}
