@@ -2,6 +2,25 @@ import { NextRequest, NextResponse } from "next/server"
 import { generateStaticHtml } from "@/templates/staticHtml"
 import { publishLandingPage, checkStudentPageExists } from "@/lib/github"
 
+// ─── in-memory rate limiter (per-instance, resets on cold start) ───
+const rateMap = new Map<string, { count: number; resetAt: number }>()
+const RATE_LIMIT = 10            // max requests
+const RATE_WINDOW_MS = 60_000    // per 60 seconds
+
+function checkRateLimit(ip: string): { allowed: boolean; remaining: number; resetAt: number } {
+  const now = Date.now()
+  const entry = rateMap.get(ip)
+  if (!entry || now > entry.resetAt) {
+    rateMap.set(ip, { count: 1, resetAt: now + RATE_WINDOW_MS })
+    return { allowed: true, remaining: RATE_LIMIT - 1, resetAt: now + RATE_WINDOW_MS }
+  }
+  entry.count++
+  if (entry.count > RATE_LIMIT) {
+    return { allowed: false, remaining: 0, resetAt: entry.resetAt }
+  }
+  return { allowed: true, remaining: RATE_LIMIT - entry.count, resetAt: entry.resetAt }
+}
+
 const MAX_NAME_LENGTH = 60
 const MAX_TAGLINE_LENGTH = 200
 const MAX_ABOUT_LENGTH = 2000
@@ -33,6 +52,22 @@ function validateImageBase64(str: string): boolean {
 
 export async function POST(request: NextRequest) {
   try {
+    // ─── rate limit ───
+    const ip = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "anonymous"
+    const rl = checkRateLimit(ip)
+    if (!rl.allowed) {
+      return NextResponse.json(
+        { error: `Terlalu banyak permintaan. Coba lagi dalam ${Math.ceil((rl.resetAt - Date.now()) / 1000)} detik.` },
+        {
+          status: 429,
+          headers: {
+            "Retry-After": String(Math.ceil((rl.resetAt - Date.now()) / 1000)),
+            "X-RateLimit-Remaining": "0",
+          },
+        }
+      )
+    }
+
     const data = await request.json()
 
     const errors: string[] = []
@@ -141,7 +176,9 @@ export async function POST(request: NextRequest) {
     const baseUrl = process.env.PUBLIC_URL || `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL || "template-three-roan.vercel.app"}`
     const url = `${baseUrl}/siswa/${folderName}`
 
-    return NextResponse.json({ success: true, url })
+    return NextResponse.json({ success: true, url }, {
+      headers: { "X-RateLimit-Remaining": String(rl.remaining) },
+    })
   } catch (error: any) {
     console.error("Publish error:", error)
     return NextResponse.json(

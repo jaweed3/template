@@ -6,12 +6,16 @@
 }
 
 * { cursor: none; }
+@media (hover: none) and (pointer: coarse) {
+  * { cursor: auto; }
+}
 
 body {
   font-family: var(--font-sans);
   background: #06060C;
   color: #EDEDF0;
   overflow-x: hidden;
+  -webkit-tap-highlight-color: transparent;
 }
 
 ::-webkit-scrollbar { width: 4px; }
@@ -205,4 +209,18 @@ body {
   border-radius: 2px;
   background: linear-gradient(90deg, #00D4FF, #7000FF, #FF2D95);
   transition: width 0.4s ease;
+}
+
+/* ─── MOBILE ─── */
+@media (max-width: 480px) {
+  .input-brand { padding: 14px 16px; font-size: 16px !important; }
+  [style*="min-height: calc(100vh - 240px)"] { min-height: calc(100vh - 180px) !important; }
+  [style*="padding: 100px 24px 140px"] { padding: 80px 16px 120px !important; }
+  .btn-launch { padding: 14px 28px; font-size: 0.9rem; }
+  .btn-ghost-brand { padding: 14px 20px; font-size: 0.85rem; }
+}
+
+@media (max-width: 380px) {
+  [style*="min-width: 280px"] { min-width: 240px !important; }
+  .step-number { font-size: 3rem !important; }
 }
