@@ -11,85 +11,87 @@ export function StepContact({ data, onChange }: Props) {
   const update = (fields: Partial<FormData>) => onChange({ ...data, ...fields })
 
   return (
-    <div className="space-y-8 max-w-xl mx-auto">
+    <div className="space-y-7 max-w-xl mx-auto">
       <div className="text-center space-y-2">
-        <h2 className="text-3xl font-bold">Kontak & Sosial Media</h2>
-        <p className="text-gray-500">Biar pelanggan gampang menghubungimu</p>
+        <h2 className="text-3xl font-bold gradient-text">Kontak & Sosial Media</h2>
+        <p className="text-[#8B8BA7]">Biar pelanggan gampang menghubungimu</p>
       </div>
 
       <div className="grid sm:grid-cols-2 gap-4">
         <div className="space-y-2">
-          <label className="block text-sm font-medium">No. WhatsApp *</label>
+          <label className="block text-sm font-medium text-[#A5A5C0]">No. WhatsApp *</label>
           <div className="relative">
-            <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-sm">+62</span>
+            <span className="absolute left-4 top-1/2 -translate-y-1/2 text-[#6B6B85] text-sm">+62</span>
             <input
               type="text"
               value={data.contact.whatsapp}
               onChange={(e) => update({ contact: { ...data.contact, whatsapp: e.target.value } })}
               placeholder="81234567890"
-              className="w-full pl-12 pr-4 py-3 rounded-xl border border-gray-200 focus:border-black focus:ring-1 focus:ring-black outline-none transition"
+              className="input-base pl-12"
             />
           </div>
         </div>
         <div className="space-y-2">
-          <label className="block text-sm font-medium">Email</label>
+          <label className="block text-sm font-medium text-[#A5A5C0]">Email</label>
           <input
             type="email"
             value={data.contact.email}
             onChange={(e) => update({ contact: { ...data.contact, email: e.target.value } })}
             placeholder="email@example.com"
-            className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-black focus:ring-1 focus:ring-black outline-none transition"
+            className="input-base"
           />
         </div>
       </div>
 
       <div className="space-y-2">
-        <label className="block text-sm font-medium">Lokasi</label>
+        <label className="block text-sm font-medium text-[#A5A5C0]">Lokasi</label>
         <input
           type="text"
           value={data.contact.location}
           onChange={(e) => update({ contact: { ...data.contact, location: e.target.value } })}
           placeholder="Contoh: Jakarta Selatan"
-          className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-black focus:ring-1 focus:ring-black outline-none transition"
+          className="input-base"
         />
       </div>
 
-      <div className="pt-4 border-t border-gray-100">
-        <h3 className="font-semibold mb-4 text-sm text-gray-500 uppercase tracking-wider">Sosial Media</h3>
+      <div className="pt-6 border-t border-white/5">
+        <h3 className="font-semibold mb-5 text-xs text-[#6B6B85] uppercase tracking-wider">
+          Sosial Media
+        </h3>
         <div className="grid sm:grid-cols-3 gap-4">
           <div className="space-y-2">
-            <label className="block text-xs font-medium text-gray-500">Instagram</label>
+            <label className="block text-xs font-medium text-[#6B6B85]">Instagram</label>
             <div className="relative">
-              <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-xs">@</span>
+              <span className="absolute left-4 top-1/2 -translate-y-1/2 text-[#6B6B85] text-xs">@</span>
               <input
                 type="text"
                 value={data.contact.instagram}
                 onChange={(e) => update({ contact: { ...data.contact, instagram: e.target.value } })}
                 placeholder="username"
-                className="w-full pl-8 pr-4 py-3 rounded-xl border border-gray-200 focus:border-black focus:ring-1 focus:ring-black outline-none transition text-sm"
+                className="input-base pl-8 text-sm"
               />
             </div>
           </div>
           <div className="space-y-2">
-            <label className="block text-xs font-medium text-gray-500">Shopee (link toko)</label>
+            <label className="block text-xs font-medium text-[#6B6B85]">Shopee</label>
             <input
               type="text"
               value={data.contact.shopee}
               onChange={(e) => update({ contact: { ...data.contact, shopee: e.target.value } })}
-              placeholder="https://shopee.co.id/..."
-              className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-black focus:ring-1 focus:ring-black outline-none transition text-sm"
+              placeholder="link toko"
+              className="input-base text-sm"
             />
           </div>
           <div className="space-y-2">
-            <label className="block text-xs font-medium text-gray-500">TikTok</label>
+            <label className="block text-xs font-medium text-[#6B6B85]">TikTok</label>
             <div className="relative">
-              <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-xs">@</span>
+              <span className="absolute left-4 top-1/2 -translate-y-1/2 text-[#6B6B85] text-xs">@</span>
               <input
                 type="text"
                 value={data.contact.tiktok}
                 onChange={(e) => update({ contact: { ...data.contact, tiktok: e.target.value } })}
                 placeholder="username"
-                className="w-full pl-8 pr-4 py-3 rounded-xl border border-gray-200 focus:border-black focus:ring-1 focus:ring-black outline-none transition text-sm"
+                className="input-base pl-8 text-sm"
               />
             </div>
           </div>

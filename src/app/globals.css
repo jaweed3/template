@@ -7,4 +7,110 @@
 
 body {
   font-family: var(--font-sans);
+  background: #07070D;
+  color: #EDEDF0;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.2); }
+
+/* Glass effect base */
+.glass {
+  background: rgba(255,255,255,0.04);
+  backdrop-filter: blur(24px);
+  border: 1px solid rgba(255,255,255,0.06);
+}
+
+/* Input base */
+.input-base {
+  width: 100%;
+  padding: 14px 18px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 14px;
+  color: #EDEDF0;
+  font-size: 0.95rem;
+  outline: none;
+  transition: all 0.2s;
+}
+.input-base:focus {
+  border-color: rgba(255,255,255,0.25);
+  background: rgba(255,255,255,0.06);
+  box-shadow: 0 0 0 3px rgba(255,255,255,0.04);
+}
+.input-base::placeholder { color: rgba(255,255,255,0.2); }
+
+/* Gradient text */
+.gradient-text {
+  background: linear-gradient(135deg, #818CF8, #C084FC, #E879F9);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Glow button */
+.btn-glow {
+  background: linear-gradient(135deg, rgba(129,140,248,0.2), rgba(192,132,252,0.2));
+  border: 1px solid rgba(129,140,248,0.3);
+  color: #EDEDF0;
+  padding: 14px 32px;
+  border-radius: 14px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+.btn-glow:hover {
+  background: linear-gradient(135deg, rgba(129,140,248,0.3), rgba(192,132,252,0.3));
+  border-color: rgba(129,140,248,0.5);
+  box-shadow: 0 0 30px rgba(129,140,248,0.15);
+}
+.btn-glow:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #818CF8, #C084FC);
+  color: #07070D;
+  padding: 14px 32px;
+  border-radius: 14px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  transition: all 0.2s;
+  cursor: pointer;
+  border: none;
+}
+.btn-primary:hover {
+  transform: scale(1.02);
+  box-shadow: 0 0 40px rgba(129,140,248,0.3);
+}
+.btn-primary:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.btn-ghost {
+  padding: 14px 32px;
+  border-radius: 14px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: rgba(255,255,255,0.5);
+  transition: all 0.2s;
+  cursor: pointer;
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.06);
+}
+.btn-ghost:hover {
+  color: rgba(255,255,255,0.8);
+  background: rgba(255,255,255,0.04);
+  border-color: rgba(255,255,255,0.12);
+}
+.btn-ghost:disabled {
+  opacity: 0.2;
+  cursor: not-allowed;
 }

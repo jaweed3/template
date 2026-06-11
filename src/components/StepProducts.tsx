@@ -26,59 +26,84 @@ export function StepProducts({ data, onChange }: Props) {
   }
 
   const add = () => {
-    update({ products: [...data.products, emptyProduct()] })
+    if (data.products.length < 6) {
+      update({ products: [...data.products, emptyProduct()] })
+    }
   }
 
   return (
-    <div className="space-y-8 max-w-xl mx-auto">
+    <div className="space-y-7 max-w-xl mx-auto">
       <div className="text-center space-y-2">
-        <h2 className="text-3xl font-bold">Produk / Layanan</h2>
-        <p className="text-gray-500">Tambahkan produk atau jasa yang kamu jual</p>
+        <h2 className="text-3xl font-bold gradient-text">Produk / Layanan</h2>
+        <p className="text-[#8B8BA7]">Tambahkan produk atau jasa yang kamu jual</p>
       </div>
 
-      <div className="space-y-6">
+      <div className="space-y-4">
         {data.products.map((product, idx) => (
-          <div key={product.id} className="p-6 rounded-2xl border border-gray-100 space-y-4 bg-white shadow-sm">
+          <div
+            key={product.id}
+            className="rounded-2xl p-6 space-y-4"
+            style={{
+              background: "rgba(255,255,255,0.02)",
+              border: "1px solid rgba(255,255,255,0.06)",
+            }}
+          >
             <div className="flex items-center justify-between">
-              <span className="text-sm font-semibold text-gray-400">Produk {idx + 1}</span>
+              <div className="flex items-center gap-3">
+                <span className="w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold"
+                  style={{
+                    background: "rgba(129,140,248,0.15)",
+                    color: "#818CF8",
+                  }}
+                >
+                  {idx + 1}
+                </span>
+                <span className="text-sm font-medium text-[#A5A5C0]">Produk</span>
+              </div>
               {data.products.length > 1 && (
-                <button onClick={() => remove(product.id)} className="text-red-400 hover:text-red-600 text-sm font-medium">
+                <button
+                  onClick={() => remove(product.id)}
+                  className="text-sm text-red-400/60 hover:text-red-400 transition px-3 py-1 rounded-lg bg-red-500/5 hover:bg-red-500/10"
+                >
                   Hapus
                 </button>
               )}
             </div>
+
             <div className="grid sm:grid-cols-2 gap-4">
               <div className="space-y-2">
-                <label className="text-xs font-medium text-gray-500">Nama Produk</label>
+                <label className="text-xs font-medium text-[#6B6B85] uppercase tracking-wider">Nama Produk</label>
                 <input
                   type="text"
                   value={product.name}
                   onChange={(e) => updateProduct(product.id, { name: e.target.value })}
                   placeholder="Nama produk"
-                  className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-black focus:ring-1 focus:ring-black outline-none transition text-sm"
+                  className="input-base text-sm"
                 />
               </div>
               <div className="space-y-2">
-                <label className="text-xs font-medium text-gray-500">Harga</label>
+                <label className="text-xs font-medium text-[#6B6B85] uppercase tracking-wider">Harga</label>
                 <input
                   type="text"
                   value={product.price}
                   onChange={(e) => updateProduct(product.id, { price: e.target.value })}
                   placeholder="Contoh: 50.000"
-                  className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-black focus:ring-1 focus:ring-black outline-none transition text-sm"
+                  className="input-base text-sm"
                 />
               </div>
             </div>
+
             <div className="space-y-2">
-              <label className="text-xs font-medium text-gray-500">Deskripsi</label>
+              <label className="text-xs font-medium text-[#6B6B85] uppercase tracking-wider">Deskripsi</label>
               <textarea
                 value={product.description}
                 onChange={(e) => updateProduct(product.id, { description: e.target.value })}
                 placeholder="Deskripsi singkat produk"
                 rows={2}
-                className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-black focus:ring-1 focus:ring-black outline-none transition text-sm resize-none"
+                className="input-base text-sm resize-none"
               />
             </div>
+
             <ImageUpload
               label="Foto Produk"
               value={product.image}
@@ -88,12 +113,26 @@ export function StepProducts({ data, onChange }: Props) {
         ))}
       </div>
 
-      <button
-        onClick={add}
-        className="w-full py-3 rounded-xl border-2 border-dashed border-gray-200 text-gray-400 hover:border-gray-400 hover:text-gray-600 transition font-medium text-sm"
-      >
-        + Tambah Produk
-      </button>
+      {data.products.length < 6 && (
+        <button
+          onClick={add}
+          className="w-full py-4 rounded-2xl border border-dashed transition font-medium text-sm"
+          style={{
+            borderColor: "rgba(255,255,255,0.08)",
+            color: "#6B6B85",
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.borderColor = "rgba(255,255,255,0.2)"
+            e.currentTarget.style.color = "#A5A5C0"
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.borderColor = "rgba(255,255,255,0.08)"
+            e.currentTarget.style.color = "#6B6B85"
+          }}
+        >
+          + Tambah Produk
+        </button>
+      )}
     </div>
   )
 }

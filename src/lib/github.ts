@@ -68,7 +68,7 @@ export async function publishLandingPage(
 ): Promise<string> {
   const config = getGithubConfig()
   const folderName = studentName.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, "")
-  const path = `template/${folderName}/index.html`
+  const path = `siswa/${folderName}/index.html`
 
   await createOrUpdateFile(config, path, html, `Publish landing page: ${studentName}`)
 

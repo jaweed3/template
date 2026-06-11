@@ -16,7 +16,9 @@ export function StepTestimonials({ data, onChange }: Props) {
 
   const updateItem = (id: string, fields: Partial<Testimonial>) => {
     update({
-      testimonials: data.testimonials.map((t) => (t.id === id ? { ...t, ...fields } : t)),
+      testimonials: data.testimonials.map((t) =>
+        t.id === id ? { ...t, ...fields } : t
+      ),
     })
   }
 
@@ -25,57 +27,95 @@ export function StepTestimonials({ data, onChange }: Props) {
   }
 
   const add = () => {
-    update({ testimonials: [...data.testimonials, emptyTestimonial()] })
+    if (data.testimonials.length < 6) {
+      update({ testimonials: [...data.testimonials, emptyTestimonial()] })
+    }
   }
 
   return (
-    <div className="space-y-8 max-w-xl mx-auto">
+    <div className="space-y-7 max-w-xl mx-auto">
       <div className="text-center space-y-2">
-        <h2 className="text-3xl font-bold">Testimoni</h2>
-        <p className="text-gray-500">Apa kata pelanggan tentang produkmu? (opsional)</p>
+        <h2 className="text-3xl font-bold gradient-text">Testimoni</h2>
+        <p className="text-[#8B8BA7]">Apa kata pelanggan tentang produkmu? (opsional)</p>
       </div>
 
-      <div className="space-y-6">
+      <div className="space-y-4">
         {data.testimonials.map((t, idx) => (
-          <div key={t.id} className="p-6 rounded-2xl border border-gray-100 space-y-4 bg-white shadow-sm">
+          <div
+            key={t.id}
+            className="rounded-2xl p-6 space-y-4"
+            style={{
+              background: "rgba(255,255,255,0.02)",
+              border: "1px solid rgba(255,255,255,0.06)",
+            }}
+          >
             <div className="flex items-center justify-between">
-              <span className="text-sm font-semibold text-gray-400">Testimoni {idx + 1}</span>
+              <div className="flex items-center gap-3">
+                <span className="w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold"
+                  style={{
+                    background: "rgba(192,132,252,0.15)",
+                    color: "#C084FC",
+                  }}
+                >
+                  {idx + 1}
+                </span>
+                <span className="text-sm font-medium text-[#A5A5C0]">Testimoni</span>
+              </div>
               {data.testimonials.length > 1 && (
-                <button onClick={() => remove(t.id)} className="text-red-400 hover:text-red-600 text-sm font-medium">
+                <button
+                  onClick={() => remove(t.id)}
+                  className="text-sm text-red-400/60 hover:text-red-400 transition px-3 py-1 rounded-lg bg-red-500/5 hover:bg-red-500/10"
+                >
                   Hapus
                 </button>
               )}
             </div>
+
             <div className="space-y-2">
-              <label className="text-xs font-medium text-gray-500">Isi Testimoni</label>
+              <label className="text-xs font-medium text-[#6B6B85] uppercase tracking-wider">Isi Testimoni</label>
               <textarea
                 value={t.text}
                 onChange={(e) => updateItem(t.id, { text: e.target.value })}
                 placeholder="&quot;Produknya bagus banget, pelayanannya ramah!&quot;"
                 rows={3}
-                className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-black focus:ring-1 focus:ring-black outline-none transition text-sm resize-none"
+                className="input-base text-sm resize-none"
               />
             </div>
+
             <div className="space-y-2">
-              <label className="text-xs font-medium text-gray-500">Nama Pelanggan</label>
+              <label className="text-xs font-medium text-[#6B6B85] uppercase tracking-wider">Nama Pelanggan</label>
               <input
                 type="text"
                 value={t.name}
                 onChange={(e) => updateItem(t.id, { name: e.target.value })}
                 placeholder="Contoh: Siti Rahma"
-                className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-black focus:ring-1 focus:ring-black outline-none transition text-sm"
+                className="input-base text-sm"
               />
             </div>
           </div>
         ))}
       </div>
 
-      <button
-        onClick={add}
-        className="w-full py-3 rounded-xl border-2 border-dashed border-gray-200 text-gray-400 hover:border-gray-400 hover:text-gray-600 transition font-medium text-sm"
-      >
-        + Tambah Testimoni
-      </button>
+      {data.testimonials.length < 6 && (
+        <button
+          onClick={add}
+          className="w-full py-4 rounded-2xl border border-dashed transition font-medium text-sm"
+          style={{
+            borderColor: "rgba(255,255,255,0.08)",
+            color: "#6B6B85",
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.borderColor = "rgba(255,255,255,0.2)"
+            e.currentTarget.style.color = "#A5A5C0"
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.borderColor = "rgba(255,255,255,0.08)"
+            e.currentTarget.style.color = "#6B6B85"
+          }}
+        >
+          + Tambah Testimoni
+        </button>
+      )}
     </div>
   )
 }

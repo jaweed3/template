@@ -28,7 +28,14 @@ const initialData: FormData = {
   },
 }
 
-const steps = ["Tema", "Profil", "Produk", "Testimoni", "Kontak", "Preview"]
+const steps = [
+  { num: 1, label: "Tema", icon: "🎨" },
+  { num: 2, label: "Profil", icon: "📋" },
+  { num: 3, label: "Produk", icon: "📦" },
+  { num: 4, label: "Testimoni", icon: "💬" },
+  { num: 5, label: "Kontak", icon: "📞" },
+  { num: 6, label: "Preview", icon: "🚀" },
+]
 
 export function LandingPageBuilder() {
   const [step, setStep] = useState(0)
@@ -40,10 +47,7 @@ export function LandingPageBuilder() {
   const canNext = () => {
     if (step === 0) return true
     if (step === 1) return data.studentName.trim() && data.businessName.trim()
-    if (step === 2) {
-      const valid = data.products.filter((p) => p.name.trim())
-      return valid.length >= 1
-    }
+    if (step === 2) return data.products.some((p) => p.name.trim())
     return true
   }
 
@@ -68,24 +72,24 @@ export function LandingPageBuilder() {
 
   if (publishedUrl) {
     return (
-      <div className="min-h-screen flex items-center justify-center px-6">
-        <div className="max-w-md w-full text-center space-y-6">
-          <span className="text-6xl">🎉</span>
-          <h2 className="text-3xl font-bold">Selamat!</h2>
-          <p className="text-gray-500">Landing page-mu sudah live!</p>
+      <div className="min-h-screen flex items-center justify-center p-6" style={{ background: "#07070D" }}>
+        <div className="max-w-md w-full text-center space-y-6 glass rounded-3xl p-12">
+          <div className="text-7xl">🎉</div>
+          <h2 className="text-3xl font-bold gradient-text">Selamat!</h2>
+          <p className="text-[#8B8BA7]">Landing page-mu sudah live!</p>
           <a
             href={publishedUrl}
             target="_blank"
-            className="inline-block px-8 py-4 bg-black text-white rounded-xl font-semibold hover:bg-gray-800 transition"
+            className="inline-flex items-center justify-center w-full gap-2 btn-primary text-lg"
           >
             🔗 Lihat Landing Page
           </a>
-          <div className="p-4 rounded-xl bg-gray-50 text-sm text-gray-500 break-all">
+          <div className="p-4 rounded-2xl bg-white/5 text-sm text-[#8B8BA7] break-all border border-white/5">
             {publishedUrl}
           </div>
           <button
             onClick={() => { setPublishedUrl(null); setStep(0); setData(initialData) }}
-            className="text-sm text-gray-400 hover:text-gray-600 underline"
+            className="text-sm text-[#8B8BA7] hover:text-white transition underline"
           >
             Buat landing page lain
           </button>
@@ -95,76 +99,97 @@ export function LandingPageBuilder() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col" style={{ background: "#07070D" }}>
       {/* HEADER */}
-      <header className="border-b border-gray-100 bg-white/80 backdrop-blur-sm sticky top-0 z-50">
+      <header className="sticky top-0 z-50 glass border-b border-white/5">
         <div className="max-w-3xl mx-auto px-6 py-4 flex items-center justify-between">
-          <h1 className="font-bold text-lg">Landing Page Builder</h1>
-          <span className="text-sm text-gray-400">Step {step + 1}/{steps.length}</span>
+          <div className="flex items-center gap-3">
+            <span className="text-xl">⚡</span>
+            <h1 className="font-bold text-lg gradient-text">
+              Landing Page Builder
+            </h1>
+          </div>
+          <span className="text-sm text-[#8B8BA7]">
+            Step {step + 1}/{steps.length}
+          </span>
         </div>
         {/* Progress */}
-        <div className="h-1 bg-gray-100">
+        <div className="h-[2px] bg-white/5">
           <div
-            className="h-full bg-black transition-all duration-300"
-            style={{ width: `${((step + 1) / steps.length) * 100}%` }}
+            className="h-full transition-all duration-500 ease-out"
+            style={{
+              width: `${((step + 1) / steps.length) * 100}%`,
+              background: "linear-gradient(90deg, #818CF8, #C084FC, #E879F9)",
+              boxShadow: "0 0 20px rgba(129,140,248,0.3)",
+            }}
           />
         </div>
       </header>
 
       {/* BODY */}
       <main className="flex-1 max-w-3xl mx-auto w-full px-6 py-12">
-        {step === 0 && (
-          <StepTemplate
-            value={data.theme}
-            onChange={(theme: ThemeId) => setData({ ...data, theme })}
-          />
-        )}
-        {step === 1 && <StepProfile data={data} onChange={setData} />}
-        {step === 2 && <StepProducts data={data} onChange={setData} />}
-        {step === 3 && <StepTestimonials data={data} onChange={setData} />}
-        {step === 4 && <StepContact data={data} onChange={setData} />}
-        {step === 5 && (
-          <StepPreview data={data} onPublish={handlePublish} isPublishing={isPublishing} />
-        )}
+        {/* Step indicator */}
+        <div className="flex items-center justify-center gap-3 mb-12">
+          {steps.map((s, i) => (
+            <button
+              key={s.num}
+              onClick={() => setStep(i)}
+              className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm transition-all ${
+                i === step
+                  ? "glass text-white font-semibold"
+                  : i < step
+                  ? "text-[#818CF8]"
+                  : "text-[#3B3B54]"
+              }`}
+            >
+              <span>{s.icon}</span>
+              <span className="hidden sm:inline">{s.label}</span>
+            </button>
+          ))}
+        </div>
+
+        {/* Step content */}
+        <div className="glass rounded-3xl p-8 md:p-10">
+          {step === 0 && (
+            <StepTemplate
+              value={data.theme}
+              onChange={(theme: ThemeId) => setData({ ...data, theme })}
+            />
+          )}
+          {step === 1 && <StepProfile data={data} onChange={setData} />}
+          {step === 2 && <StepProducts data={data} onChange={setData} />}
+          {step === 3 && <StepTestimonials data={data} onChange={setData} />}
+          {step === 4 && <StepContact data={data} onChange={setData} />}
+          {step === 5 && (
+            <StepPreview data={data} onPublish={handlePublish} isPublishing={isPublishing} />
+          )}
+        </div>
 
         {error && (
-          <div className="mt-4 p-4 rounded-xl bg-red-50 text-red-600 text-sm">
+          <div className="mt-4 p-4 rounded-2xl bg-red-500/10 border border-red-500/20 text-red-400 text-sm">
             {error}
           </div>
         )}
       </main>
 
       {/* NAVIGATION */}
-      <footer className="border-t border-gray-100 bg-white">
+      <footer className="border-t border-white/5 glass">
         <div className="max-w-3xl mx-auto px-6 py-4 flex items-center justify-between">
           <button
             onClick={() => setStep(Math.max(0, step - 1))}
             disabled={step === 0}
-            className="px-6 py-3 rounded-xl border border-gray-200 text-sm font-medium hover:bg-gray-50 transition disabled:opacity-30 disabled:cursor-not-allowed"
+            className="btn-ghost"
           >
-            Sebelumnya
+            ← Sebelumnya
           </button>
-
-          {/* Step indicators */}
-          <div className="hidden sm:flex items-center gap-2">
-            {steps.map((s, i) => (
-              <button
-                key={s}
-                onClick={() => setStep(i)}
-                className={`w-2.5 h-2.5 rounded-full transition-all ${
-                  i === step ? "w-8 bg-black" : i < step ? "bg-gray-400" : "bg-gray-200"
-                }`}
-              />
-            ))}
-          </div>
 
           {step < steps.length - 1 ? (
             <button
               onClick={() => setStep(step + 1)}
               disabled={!canNext()}
-              className="px-6 py-3 rounded-xl bg-black text-white text-sm font-medium hover:bg-gray-800 transition disabled:opacity-30 disabled:cursor-not-allowed"
+              className="btn-primary"
             >
-              Selanjutnya
+              Selanjutnya →
             </button>
           ) : (
             <div />
