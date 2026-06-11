@@ -165,26 +165,45 @@ export default function StepLaunchSequence({
           <div style={{ flex: 1, fontSize: "0.85rem", color: "rgba(255,255,255,0.5)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
             template-three-roan.vercel.app/siswa/{slug(form.studentName) || "nama"}/
           </div>
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={() => {
-              navigator.clipboard.writeText(`https://template-three-roan.vercel.app/siswa/${slug(form.studentName) || "nama"}/`)
-            }}
-            style={{
-              padding: "8px 16px",
-              borderRadius: 10,
-              background: "rgba(0,212,255,0.08)",
-              border: "1px solid rgba(0,212,255,0.15)",
-              color: "#00D4FF",
-              fontFamily: "var(--font-sans)",
-              fontSize: "0.8rem",
-              cursor: "none",
-              flexShrink: 0,
-            }}
-          >
-            Copy Link
-          </motion.button>
+          <div style={{ display: "flex", gap: 6, flexShrink: 0 }}>
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => window.open(`https://template-three-roan.vercel.app/siswa/${slug(form.studentName) || "nama"}/`, "_blank")}
+              style={{
+                padding: "8px 12px",
+                borderRadius: 10,
+                background: "rgba(255,255,255,0.04)",
+                border: "1px solid rgba(255,255,255,0.06)",
+                color: "rgba(255,255,255,0.5)",
+                fontFamily: "var(--font-sans)",
+                fontSize: "0.8rem",
+                cursor: "none",
+              }}
+              title="Buka di tab baru"
+            >
+              ↗
+            </motion.button>
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => {
+                navigator.clipboard.writeText(`https://template-three-roan.vercel.app/siswa/${slug(form.studentName) || "nama"}/`)
+              }}
+              style={{
+                padding: "8px 16px",
+                borderRadius: 10,
+                background: "rgba(0,212,255,0.08)",
+                border: "1px solid rgba(0,212,255,0.15)",
+                color: "#00D4FF",
+                fontFamily: "var(--font-sans)",
+                fontSize: "0.8rem",
+                cursor: "none",
+              }}
+            >
+              Copy Link
+            </motion.button>
+          </div>
         </div>
         <motion.button
           className="btn-launch"

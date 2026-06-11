@@ -62,6 +62,13 @@ async function createOrUpdateFile(
   }
 }
 
+export async function checkStudentPageExists(folderName: string): Promise<boolean> {
+  const config = getGithubConfig()
+  const path = `siswa/${folderName}/index.html`
+  const existing = await getFile(config, path)
+  return existing !== null
+}
+
 export async function publishLandingPage(
   studentName: string,
   html: string
