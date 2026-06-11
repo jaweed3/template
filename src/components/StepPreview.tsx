@@ -28,8 +28,8 @@ export function StepPreview({ data, onPublish, isPublishing }: Props) {
     return (
       <div className="text-center py-12 space-y-4">
         <div className="text-6xl">👀</div>
-        <h2 className="text-3xl font-bold gradient-text">Preview & Publish</h2>
-        <p className="text-[#8B8BA7]">Isi dulu data usahamu di langkah sebelumnya ya!</p>
+        <h2 className="text-3xl font-bold neon-text" style={{ fontFamily: "var(--font-display)" }}>Preview & Publish</h2>
+        <p className="text-[#6B6B8D]">Isi dulu data usahamu di langkah sebelumnya ya!</p>
       </div>
     )
   }
@@ -37,44 +37,44 @@ export function StepPreview({ data, onPublish, isPublishing }: Props) {
   return (
     <div className="space-y-8">
       <div className="text-center space-y-2">
-        <h2 className="text-3xl font-bold gradient-text">Preview & Publish</h2>
-        <p className="text-[#8B8BA7]">Cek tampilan landing page-mu, kalau sudah oke langsung publish!</p>
+        <h2 className="text-3xl font-bold neon-text" style={{ fontFamily: "var(--font-display)" }}>Preview & Publish</h2>
+        <p className="text-[#6B6B8D]">Cek tampilan landing page-mu, kalau sudah oke langsung publish!</p>
       </div>
 
       {!showPreview ? (
         <div className="text-center">
           <button
             onClick={() => setShowPreview(true)}
-            className="btn-glow inline-flex items-center gap-2"
+            className="btn-neon-ghost inline-flex items-center gap-2 hover:!border-[rgba(0,212,255,0.2)] hover:!text-[#00D4FF]"
           >
             👁️ Lihat Preview
           </button>
         </div>
       ) : (
         <>
-          {/* PREVIEW FRAME */}
+          {/* Device frame */}
           <div className="rounded-2xl overflow-hidden" style={{
             border: "1px solid rgba(255,255,255,0.06)",
-            boxShadow: "0 0 60px rgba(129,140,248,0.05)",
+            boxShadow: "0 0 60px rgba(0,212,255,0.04)",
           }}>
             <div className="flex items-center gap-2 px-4 py-3 border-b border-white/5"
               style={{ background: "rgba(255,255,255,0.03)" }}
             >
-              <span className="w-3 h-3 rounded-full bg-red-500/50" />
-              <span className="w-3 h-3 rounded-full bg-yellow-500/50" />
-              <span className="w-3 h-3 rounded-full bg-green-500/50" />
-              <span className="ml-3 text-xs text-[#6B6B85]">{data.businessName} — Preview</span>
+              <span className="w-3 h-3 rounded-full bg-red-500/40" />
+              <span className="w-3 h-3 rounded-full bg-yellow-500/40" />
+              <span className="w-3 h-3 rounded-full bg-green-500/40" />
+              <span className="ml-3 text-xs text-[#5B5B7D] font-mono">{data.businessName} — Preview</span>
             </div>
-            <div className="max-h-[500px] overflow-y-auto">
+            <div className="max-h-[500px] overflow-y-auto bg-white">
               <ThemeComponent data={data} />
             </div>
           </div>
 
-          {/* RINGKASAN */}
+          {/* Stats */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
             {[
-              { label: "Produk", value: data.products.length.toString() },
-              { label: "Testimoni", value: data.testimonials.length.toString() },
+              { label: "Produk", value: data.products.length },
+              { label: "Testimoni", value: data.testimonials.length },
               { label: "WhatsApp", value: data.contact.whatsapp ? "✓" : "—" },
               { label: "Logo", value: data.logo ? "✓" : "—" },
             ].map((item) => (
@@ -82,24 +82,28 @@ export function StepPreview({ data, onPublish, isPublishing }: Props) {
                 key={item.label}
                 className="p-4 rounded-xl text-center"
                 style={{
-                  background: "rgba(255,255,255,0.03)",
+                  background: "rgba(255,255,255,0.02)",
                   border: "1px solid rgba(255,255,255,0.06)",
                 }}
               >
-                <div className="text-2xl font-bold gradient-text">{item.value}</div>
-                <div className="text-xs text-[#6B6B85] mt-1">{item.label}</div>
+                <div className="text-2xl font-bold neon-text" style={{ fontFamily: "var(--font-display)" }}>
+                  {item.value}
+                </div>
+                <div className="text-xs text-[#5B5B7D] mt-1 uppercase tracking-wider">{item.label}</div>
               </div>
             ))}
           </div>
 
-          {/* PUBLISH */}
+          {/* Publish */}
           <button
             onClick={onPublish}
             disabled={isPublishing}
-            className="w-full py-4 btn-primary text-lg flex items-center justify-center gap-2"
+            className="w-full py-4 btn-neon-primary text-lg flex items-center justify-center gap-2"
           >
             {isPublishing ? (
-              <>⏳ Menerbitkan...</>
+              <span className="flex items-center gap-2">
+                <span className="animate-pulse">⏳</span> Menerbitkan...
+              </span>
             ) : (
               <>🚀 Publish Landing Page!</>
             )}

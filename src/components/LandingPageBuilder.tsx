@@ -28,14 +28,7 @@ const initialData: FormData = {
   },
 }
 
-const steps = [
-  { num: 1, label: "Tema", icon: "🎨" },
-  { num: 2, label: "Profil", icon: "📋" },
-  { num: 3, label: "Produk", icon: "📦" },
-  { num: 4, label: "Testimoni", icon: "💬" },
-  { num: 5, label: "Kontak", icon: "📞" },
-  { num: 6, label: "Preview", icon: "🚀" },
-]
+const stepLabels = ["Tema", "Profil", "Produk", "Testimoni", "Kontak", "Preview"]
 
 export function LandingPageBuilder() {
   const [step, setStep] = useState(0)
@@ -72,24 +65,24 @@ export function LandingPageBuilder() {
 
   if (publishedUrl) {
     return (
-      <div className="min-h-screen flex items-center justify-center p-6" style={{ background: "#07070D" }}>
-        <div className="max-w-md w-full text-center space-y-6 glass rounded-3xl p-12">
-          <div className="text-7xl">🎉</div>
-          <h2 className="text-3xl font-bold gradient-text">Selamat!</h2>
-          <p className="text-[#8B8BA7]">Landing page-mu sudah live!</p>
+      <div className="min-h-screen flex items-center justify-center p-6">
+        <div className="max-w-md w-full text-center space-y-6 glass-glow rounded-3xl p-12 animate-slide-up">
+          <div className="text-7xl animate-float">🎉</div>
+          <h2 className="text-3xl font-bold neon-text" style={{ fontFamily: "var(--font-display)" }}>Selamat!</h2>
+          <p className="text-[#6B6B8D]">Landing page-mu sudah live!</p>
           <a
             href={publishedUrl}
             target="_blank"
-            className="inline-flex items-center justify-center w-full gap-2 btn-primary text-lg"
+            className="inline-flex items-center justify-center w-full gap-2 btn-neon-primary text-lg"
           >
             🔗 Lihat Landing Page
           </a>
-          <div className="p-4 rounded-2xl bg-white/5 text-sm text-[#8B8BA7] break-all border border-white/5">
+          <div className="p-4 rounded-2xl bg-white/5 text-sm text-[#6B6B8D] break-all border border-white/5">
             {publishedUrl}
           </div>
           <button
             onClick={() => { setPublishedUrl(null); setStep(0); setData(initialData) }}
-            className="text-sm text-[#8B8BA7] hover:text-white transition underline"
+            className="text-sm text-[#6B6B8D] hover:text-white transition underline"
           >
             Buat landing page lain
           </button>
@@ -99,57 +92,60 @@ export function LandingPageBuilder() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col" style={{ background: "#07070D" }}>
+    <div className="min-h-screen flex flex-col">
       {/* HEADER */}
       <header className="sticky top-0 z-50 glass border-b border-white/5">
         <div className="max-w-3xl mx-auto px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <span className="text-xl">⚡</span>
-            <h1 className="font-bold text-lg gradient-text">
-              Landing Page Builder
+            <span className="text-xl" style={{ filter: "drop-shadow(0 0 8px rgba(0,212,255,0.5))" }}>⚡</span>
+            <h1 className="font-bold text-lg neon-text" style={{ fontFamily: "var(--font-display)" }}>
+              LP Builder
             </h1>
           </div>
-          <span className="text-sm text-[#8B8BA7]">
-            Step {step + 1}/{steps.length}
-          </span>
+          <div className="flex items-center gap-3">
+            <span className="text-xs text-[#3B3B54] font-mono">{String(step + 1).padStart(2, "0")}/06</span>
+          </div>
         </div>
-        {/* Progress */}
+        {/* Progress bar */}
         <div className="h-[2px] bg-white/5">
           <div
             className="h-full transition-all duration-500 ease-out"
             style={{
-              width: `${((step + 1) / steps.length) * 100}%`,
-              background: "linear-gradient(90deg, #818CF8, #C084FC, #E879F9)",
-              boxShadow: "0 0 20px rgba(129,140,248,0.3)",
+              width: `${((step + 1) / 6) * 100}%`,
+              background: "linear-gradient(90deg, #00D4FF, #7000FF, #FF2D95)",
+              boxShadow: "0 0 20px rgba(0,212,255,0.3)",
             }}
           />
         </div>
       </header>
 
       {/* BODY */}
-      <main className="flex-1 max-w-3xl mx-auto w-full px-6 py-12">
-        {/* Step indicator */}
-        <div className="flex items-center justify-center gap-3 mb-12">
-          {steps.map((s, i) => (
+      <main className="flex-1 max-w-3xl mx-auto w-full px-6 py-10">
+        {/* Step dots */}
+        <div className="flex items-center justify-center gap-2 mb-10">
+          {stepLabels.map((label, i) => (
             <button
-              key={s.num}
+              key={label}
               onClick={() => setStep(i)}
-              className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm transition-all ${
-                i === step
-                  ? "glass text-white font-semibold"
-                  : i < step
-                  ? "text-[#818CF8]"
-                  : "text-[#3B3B54]"
-              }`}
+              className="flex items-center gap-2 group"
             >
-              <span>{s.icon}</span>
-              <span className="hidden sm:inline">{s.label}</span>
+              <div className={`step-dot ${i === step ? "active" : i < step ? "done" : "pending"}`} />
+              <span
+                className={`text-xs hidden sm:inline transition-colors ${
+                  i === step ? "text-white" : "text-[#3B3B54]"
+                }`}
+              >
+                {label}
+              </span>
+              {i < stepLabels.length - 1 && (
+                <span className="w-6 h-px bg-white/5 hidden sm:block" />
+              )}
             </button>
           ))}
         </div>
 
-        {/* Step content */}
-        <div className="glass rounded-3xl p-8 md:p-10">
+        {/* Content card */}
+        <div className="glass-glow rounded-3xl p-8 md:p-10 animate-slide-up" style={{ animationDelay: "0.1s" }}>
           {step === 0 && (
             <StepTemplate
               value={data.theme}
@@ -166,7 +162,7 @@ export function LandingPageBuilder() {
         </div>
 
         {error && (
-          <div className="mt-4 p-4 rounded-2xl bg-red-500/10 border border-red-500/20 text-red-400 text-sm">
+          <div className="mt-4 p-4 rounded-2xl bg-red-500/10 border border-red-500/20 text-red-400 text-sm animate-slide-up">
             {error}
           </div>
         )}
@@ -178,18 +174,18 @@ export function LandingPageBuilder() {
           <button
             onClick={() => setStep(Math.max(0, step - 1))}
             disabled={step === 0}
-            className="btn-ghost"
+            className="btn-neon-ghost"
           >
             ← Sebelumnya
           </button>
 
-          {step < steps.length - 1 ? (
+          {step < 5 ? (
             <button
               onClick={() => setStep(step + 1)}
               disabled={!canNext()}
-              className="btn-primary"
+              className="btn-neon-primary"
             >
-              Selanjutnya →
+              Lanjut →
             </button>
           ) : (
             <div />

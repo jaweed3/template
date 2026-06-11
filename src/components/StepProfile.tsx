@@ -14,51 +14,51 @@ export function StepProfile({ data, onChange }: Props) {
   return (
     <div className="space-y-7 max-w-xl mx-auto">
       <div className="text-center space-y-2">
-        <h2 className="text-3xl font-bold gradient-text">Profil Usaha</h2>
-        <p className="text-[#8B8BA7]">Ceritakan tentang bisnismu</p>
+        <h2 className="text-3xl font-bold neon-text" style={{ fontFamily: "var(--font-display)" }}>Profil Usaha</h2>
+        <p className="text-[#6B6B8D]">Ceritakan tentang bisnismu</p>
       </div>
 
       <div className="space-y-2">
-        <label className="block text-sm font-medium text-[#A5A5C0]">Nama Kamu *</label>
+        <label className="block text-sm font-medium text-[#8B8BA7]">Nama Kamu <span className="text-[#FF2D95]">*</span></label>
         <input
           type="text"
           value={data.studentName}
           onChange={(e) => update({ studentName: e.target.value })}
           placeholder="Contoh: Andi Pratama"
-          className="input-base"
+          className="input-neon"
         />
       </div>
 
       <div className="space-y-2">
-        <label className="block text-sm font-medium text-[#A5A5C0]">Nama Usaha *</label>
+        <label className="block text-sm font-medium text-[#8B8BA7]">Nama Usaha <span className="text-[#FF2D95]">*</span></label>
         <input
           type="text"
           value={data.businessName}
           onChange={(e) => update({ businessName: e.target.value })}
           placeholder="Contoh: Andi Bakery"
-          className="input-base"
+          className="input-neon"
         />
       </div>
 
       <div className="space-y-2">
-        <label className="block text-sm font-medium text-[#A5A5C0]">Tagline</label>
+        <label className="block text-sm font-medium text-[#8B8BA7]">Tagline</label>
         <input
           type="text"
           value={data.tagline}
           onChange={(e) => update({ tagline: e.target.value })}
           placeholder="Contoh: Roti fresh homemade, tanpa pengawet"
-          className="input-base"
+          className="input-neon"
         />
       </div>
 
       <div className="space-y-2">
-        <label className="block text-sm font-medium text-[#A5A5C0]">Tentang Usaha</label>
+        <label className="block text-sm font-medium text-[#8B8BA7]">Tentang Usaha</label>
         <textarea
           value={data.about}
           onChange={(e) => update({ about: e.target.value })}
-          placeholder="Ceritakan tentang usahamu, visi, dan apa yang membedakanmu dari yang lain..."
+          placeholder="Ceritakan tentang usahamu, visi, dan apa yang membedakanmu..."
           rows={4}
-          className="input-base resize-none"
+          className="input-neon resize-none"
         />
       </div>
 
