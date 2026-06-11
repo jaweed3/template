@@ -74,5 +74,5 @@ export async function publishLandingPage(
 
   const branch = process.env.GITHUB_BRANCH || "main"
   const baseUrl = process.env.PUBLIC_URL || `https://${config.owner}.github.io/${config.repo}`
-  return `${baseUrl}/template/${folderName}`
+  return `${baseUrl}/siswa/${folderName}`
 }
