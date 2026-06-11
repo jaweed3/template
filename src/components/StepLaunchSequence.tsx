@@ -1,9 +1,13 @@
 "use client"
 
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect, useRef, useMemo } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { FormData } from "@/types"
 import { themeConfigs } from "@/templates/config"
+
+function slug(name: string) {
+  return name.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, "")
+}
 
 const launchPhases = [
   { label: "Generating Identity", duration: 1500 },
@@ -159,13 +163,13 @@ export default function StepLaunchSequence({
           }}
         >
           <div style={{ flex: 1, fontSize: "0.85rem", color: "rgba(255,255,255,0.5)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
-            jaweed3.github.io/template/siswa/{form.studentName || "nama"}/
+            template-three-roan.vercel.app/siswa/{slug(form.studentName) || "nama"}/
           </div>
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={() => {
-              navigator.clipboard.writeText(`https://jaweed3.github.io/template/siswa/${form.studentName || "nama"}/`)
+              navigator.clipboard.writeText(`https://template-three-roan.vercel.app/siswa/${slug(form.studentName) || "nama"}/`)
             }}
             style={{
               padding: "8px 16px",
@@ -310,7 +314,7 @@ export default function StepLaunchSequence({
           Semua sudah siap. Website akan langsung live di
           <br />
           <span style={{ color: "rgba(0,212,255,0.4)", fontFamily: "var(--font-display)", fontSize: "0.85rem" }}>
-            jaweed3.github.io/template/siswa/{form.studentName || "nama"}/
+            template-three-roan.vercel.app/siswa/{slug(form.studentName) || "nama"}/
           </span>
         </p>
       </motion.div>

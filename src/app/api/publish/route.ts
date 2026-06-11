@@ -14,8 +14,12 @@ export async function POST(request: NextRequest) {
     }
 
     const html = generateStaticHtml(data)
+    const folderName = data.studentName.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, "")
 
-    const url = await publishLandingPage(data.studentName, html)
+    await publishLandingPage(data.studentName, html)
+
+    const baseUrl = process.env.PUBLIC_URL || `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL || "template-three-roan.vercel.app"}`
+    const url = `${baseUrl}/siswa/${folderName}`
 
     return NextResponse.json({ success: true, url })
   } catch (error: any) {

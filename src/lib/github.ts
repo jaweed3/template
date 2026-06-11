@@ -65,14 +65,10 @@ async function createOrUpdateFile(
 export async function publishLandingPage(
   studentName: string,
   html: string
-): Promise<string> {
+): Promise<void> {
   const config = getGithubConfig()
   const folderName = studentName.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, "")
   const path = `siswa/${folderName}/index.html`
 
   await createOrUpdateFile(config, path, html, `Publish landing page: ${studentName}`)
-
-  const branch = process.env.GITHUB_BRANCH || "main"
-  const baseUrl = process.env.PUBLIC_URL || `https://${config.owner}.github.io/${config.repo}`
-  return `${baseUrl}/siswa/${folderName}`
 }
